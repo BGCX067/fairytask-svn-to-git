@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" version="3">
+  <includeClasses>
+    <classEntry path="com.jzonl.engine.data.BaseData"/>
+    <classEntry path="com.jzonl.engine.pool.IPoolable"/>
+    <classEntry path="com.jzonl.engine.GameStage"/>
+    <classEntry path="com.jzonl.engine.layer.SceneLayer"/>
+    <classEntry path="com.jzonl.engine.data.Modulator"/>
+    <classEntry path="com.jzonl.engine.game.AbstractGame"/>
+    <classEntry path="com.jzonl.engine.layer.scene.WildLayer"/>
+    <classEntry path="com.jzonl.engine.utils.UITools"/>
+    <classEntry path="com.jzonl.engine.layer.scene.ILayer"/>
+    <classEntry path="com.jzonl.engine.layer.scene.BattleLayer"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

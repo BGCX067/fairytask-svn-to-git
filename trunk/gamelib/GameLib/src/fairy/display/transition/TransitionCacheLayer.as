@@ -1,0 +1,65 @@
+package fairy.display.transition
+{
+	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	
+	import fairy.display.IGBase;
+	import fairy.events.GEvent;
+	import fairy.operation.DelayOper;
+	import fairy.operation.Oper;
+	import fairy.operation.TweenOper;
+	import fairy.parse.display.DrawParse;
+	import fairy.util.core.Handler;
+	
+	/**
+	 * 过渡会先进行缓存，然后对缓存进行Tween（默认是直接透明渐变）
+	 * 
+	 * 当设置了wait属性后，将会暂停，此时只能用continueFadeOut方法继续
+	 *
+	 * @author flashyiyi
+	 * 
+	 */
+	public class TransitionCacheLayer extends TransitionLayerBase
+	{
+		/**
+		 * 遮挡对象
+		 */
+		public var transfer:Bitmap;
+		
+		/** @inheritDoc*/
+		public override function createTo(container:DisplayObjectContainer):TransitionLayerBase
+		{
+			container.addChild(transfer);
+			return super.createTo(container);
+		}
+			
+		public function TransitionCacheLayer(switchHandler:*,target:DisplayObject,duration:int = 1000, tweenParams:Object = null, wait:Boolean=false)
+		{
+			this.transfer = new DrawParse(target).createBitmap();
+			transfer.alpha = 1.0;
+			
+			if (!tweenParams)
+				tweenParams = {alpha:0.0};
+			
+			var fadeOutOper:Oper;
+			var waitOper:Oper;
+			
+			if (duration)
+				fadeOutOper = new TweenOper(transfer,duration,tweenParams);
+			if (wait)
+				waitOper = new DelayOper(-1);
+			
+			super(switchHandler,null,fadeOutOper,waitOper);
+		}
+		
+		/** @inheritDoc*/
+		public override function destory() : void
+		{
+			transfer.parent.removeChild(transfer);
+			transfer.bitmapData.dispose();
+			
+			super.destory();
+		}
+	}
+}
